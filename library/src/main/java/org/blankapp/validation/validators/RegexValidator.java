@@ -43,6 +43,7 @@ public class RegexValidator extends AbstractValidator<CharSequence> {
         public static final Pattern ALPHA = Pattern.compile("^[A-Za-z]+$");
         public static final Pattern ALPHA_DASH = Pattern.compile("^\\w+$");
         public static final Pattern ALPHA_NUM = Pattern.compile("^[A-Za-z0-9]+$");
+        public static final Pattern MOBILE = Pattern.compile("^1[0-9]{10}$");
 
     }
 
