@@ -65,6 +65,7 @@ public class Rule {
     public static final String REGEX            = "regex";
     public static final String REQUIRED         = "required";
     public static final String URL              = "url";
+    public static final String MOBILE            = "mobile";
 
     public static Rule with(View view) {
         return new Rule(view, null);
@@ -106,7 +107,11 @@ public class Rule {
 
         if (mName == null) {
             String viewIdName = mResources.getResourceName(view.getId());
-            String fieldName = viewIdName.substring(viewIdName.indexOf('_') + 1);
+            String p = "_";
+            if(viewIdName.indexOf(p)==-1){
+                p = "et";
+            }
+            String fieldName = viewIdName.substring(viewIdName.indexOf(p) + p.length());
             Log.e("Rule", "validation_field_" + fieldName);
             int resId = mResources.getIdentifier("validation_field_" + fieldName, "string", mPackageName);
             this.mName = mResources.getString(resId == 0 ? R.string.validation_field : resId);
@@ -451,6 +456,17 @@ public class Rule {
      */
     public Rule email() {
         addValidator(EMAIL, new RegexValidator(RegexValidator.Patterns.EMAIL_ADDRESS), R.string.validation_error_message_email, name());
+        return this;
+    }
+    
+   
+    /**
+     * 验证字段值是否符合 手机号 格式。
+     *
+     * @return 规则
+     */
+    public Rule mobile() {
+        addValidator(MOBILE, new RegexValidator(RegexValidator.Patterns.MOBILE), R.string.validation_error_message_mobile, name());
         return this;
     }
 
